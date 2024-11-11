@@ -1,6 +1,5 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { json, redirect, useFetcher, useLoaderData } from "@remix-run/react";
-import { PenBoxIcon, Trash } from "lucide-react";
+import { json, redirect, useLoaderData } from "@remix-run/react";
 import { DateTime } from "luxon";
 import { DeleteButton } from "~/components/delete-button";
 import { EditButton } from "~/components/edit-button";
@@ -35,6 +34,9 @@ export default function Note() {
           {DateTime.fromISO(note?.created_at as string).toRelative()}
         </span>
       </div>
+      {note.image ? (
+        <img src={note.image} className="w-full h-full rounded-md mb-4" />
+      ) : null}
       <p className="whitespace-pre-line">{note?.body}</p>
       <div className="border-t border-white/5 mt-5 pt-5 flex items-end justify-end gap-2">
         <EditButton post_id={note?.id as string} />
