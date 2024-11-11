@@ -44,6 +44,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function CreatePage() {
   const { state } = useNavigation();
   const [imagePick, setImagePick] = useState<File | null>(null);
+  const [inputKey, setInputKey] = useState(Date.now());
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
@@ -71,7 +72,30 @@ export default function CreatePage() {
 
           {imagePick ? (
             <div className="mt-4 w-full">
-              <div className="w-6/12">
+              <div className="w-6/12 relative">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setImagePick(null);
+                    setInputKey(Date.now());
+                  }}
+                  className="btn btn-sm btn-square absolute right-2 top-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
                 <img
                   src={URL.createObjectURL(imagePick)}
                   alt="imagepick"
@@ -85,6 +109,7 @@ export default function CreatePage() {
             <input
               ref={inputRef}
               name="image"
+              key={inputKey}
               onChange={(e) => {
                 if (!e.target.files) return;
                 setImagePick(e.target.files[0]);
