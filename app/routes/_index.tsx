@@ -30,15 +30,27 @@ export default function Index() {
       </div>
       <section className="grid grid-cols-2 gap-5 mt-5">
         {notes?.map((note) => (
-          <Link key={note.id} to={`/note/${note.id}`}>
-            <div className="h-[200px] p-5 rounded-md border border-white/20 whitespace-pre-line flex flex-col items-end justify-between">
-              <div className="w-full">
-                <h4 className="font-bold mb-2">{note.title}</h4>
-                <p className="text-white/50 line-clamp-3 ">{note.body}</p>
+          <Link
+            key={note.id}
+            to={`/note/${note.id}`}
+            className="w-full h-full "
+          >
+            <div className="h-[200px] relative rounded-md border border-white/20 whitespace-pre-line ">
+              {note.image ? (
+                <img
+                  src={note.image}
+                  className="w-full h-full object-cover absolute inset-0"
+                />
+              ) : null}
+              <div className="w-full h-full absolute inset-0 z-10 flex flex-col items-end justify-between p-5 backdrop-blur bg-black/5">
+                <div className="w-full">
+                  <h4 className="font-bold mb-2">{note.title}</h4>
+                  <p className="text-white/50 line-clamp-3 ">{note.body}</p>
+                </div>
+                <span className="text-sm text-white/30">
+                  {DateTime.fromISO(note.created_at).toRelative()}
+                </span>
               </div>
-              <span className="text-sm text-white/30">
-                {DateTime.fromISO(note.created_at).toRelative()}
-              </span>
             </div>
           </Link>
         ))}

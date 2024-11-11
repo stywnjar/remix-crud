@@ -89,18 +89,21 @@ export type Database = {
           body: string
           created_at: string
           id: string
+          image: string | null
           title: string
         }
         Insert: {
           body: string
           created_at?: string
           id?: string
+          image?: string | null
           title: string
         }
         Update: {
           body?: string
           created_at?: string
           id?: string
+          image?: string | null
           title?: string
         }
         Relationships: []
